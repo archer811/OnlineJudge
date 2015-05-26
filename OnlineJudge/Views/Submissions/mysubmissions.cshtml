@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutProblem.cshtml";
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="~/Content/js/upload.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    
+}
+@model IEnumerable<OnlineJudge.Models.SubmissionModel>
+
+<ul class="nav nav-tabs">
+    <li role="presentation">@Html.ActionLink("Problem", "Problem", "Problem", new { problemId = ViewBag.ProblemId }, new { @style = "text-decoration:none;" })</li>
+    <li role="presentation" class="active"><a>My Submissions</a></li>
+    <li role="presentation">@Html.ActionLink("Others Submissions", "otherssubmissions", "Submissions", new { problemId = ViewBag.ProblemId }, new { @style = "text-decoration:none;" })</li>
+</ul>
+<br />
+<div class="panel panel-default"><!-- Table -->
+    <table class="table" style="color:black;">
+        <tr>
+            <th>UserName</th>
+            <th>Score</th>
+            <th>Verdict</th>
+        </tr>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                    <a href="/Submissions/DownFile?SubmissionID=@item.SubmissionID">下载</a>
+                </td>
+                <td>@item.score</td>
+                <td>@item.Verdict</td>
+            </tr>
+        }
+    </table>
+</div>

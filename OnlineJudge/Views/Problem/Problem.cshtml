@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutProblem.cshtml";
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+<script src="~/Content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/upload.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+@model OnlineJudge.Models.ProblemModel
+<h2 style="color:black;">@Model.Title</h2>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Problem</a></li>
+    <li role="presentation">@Html.ActionLink("My Submissions", "mysubmissions", "Submissions", new { problemId = @Model.ProblemId}, new { @style = "text-decoration:none;" })</li>
+    <li role="presentation">@Html.ActionLink("My Submissions", "otherssubmissions", "Submissions", new { problemId = @Model.ProblemId }, new { @style = "text-decoration:none;" })</li>
+</ul>
+@foreach (string line in @Model.ProblemFile)
+{
+    <div class="my-padding color_alt-green" style="color:black;">@line</div>
+}
+<div class="row">
+    <label for="file">
+        Upload Image:
+    </label>
+    <input type="file" name="fileToUpload" id="fileToUpload" multiple="multiple" onchange="fileSelected();" />
+</div>
+<div style="color:black;">
+    <div id="fileName">
+    </div>
+    <br />
+    <div id="fileSize">
+    </div>
+    <br />
+    <div id="fileType">
+    </div>
+</div>
+<br />
+<div id="progressNumber" style="color:black;">
+    0%;
+</div>
+<br />
+<div class="row">
+    <input type="submit" class="btn btn-success dropdown-toggle" onclick="uploadFile()" value="Submit" />
+    <span>=></span>
+    @Ajax.ActionLink("Run Code", "ProgressSubmission", "Problem", new { problemId = @Model.ProblemId }, new AjaxOptions
+{
+    UpdateTargetId = "progress_submission",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+})
+</div>
+
+<br />
+<div id="progress_submission" style="color:black;">
+</div>

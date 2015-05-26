@@ -1,0 +1,62 @@
+﻿@model OnlineJudge.Models.Result
+
+
+
+@{
+    string[] lineline = System.IO.File.ReadAllLines( System.AppDomain.CurrentDomain.BaseDirectory+@Model.outputfile);
+    string[] lines = System.IO.File.ReadAllLines( System.AppDomain.CurrentDomain.BaseDirectory+@Model.answerfile);
+    string[] lineans = System.IO.File.ReadAllLines( System.AppDomain.CurrentDomain.BaseDirectory+@Model.resultfile);
+    int len = lines.Count();
+    int g = lineline.Count();
+}
+<ul class="list-group">
+        @for (int i = 0; i < g; i++)
+    {
+        <li class="list-group-item disabled">
+            #TestCase @i:
+        </li>
+        if(lineans[i].CompareTo("Accept") == 0)
+        {
+            <li class="list-group-item list-group-item-success">
+                Your Output :@lineline[i]
+                <br />
+                Expected Output:@lines[i]
+            </li>
+        }
+        else
+        {
+            <li class="list-group-item list-group-item-warning">
+                Your Output :@lineline[i]
+                <br />
+                Expected Output:@lines[i]
+            </li>
+        }
+        <li><u></u></li>
+    }
+    @if(g<len)
+    {
+        for(int i=g;i<len;i++)
+        {
+            <li class="list-group-item disabled">
+            #TestCase @i:
+        </li>
+            if(lineans[i].CompareTo("Accept") == 0)
+        {
+            <li class="list-group-item list-group-item-success">
+                Your Output :
+                <br />
+                Expected Output:@lines[i]
+            </li>
+        }
+        else
+        {
+            <li class="list-group-item list-group-item-warning">
+                Your Output :
+                <br />
+                Expected Output:@lines[i]
+            </li>
+        }
+        }
+        <li><u></u></li>
+    }
+</ul>

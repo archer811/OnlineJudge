@@ -1,0 +1,28 @@
+﻿@if(string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+{
+     <ul class="nav navbar-nav navbar-right">
+        
+        <li class="hidden">
+            <a href="#page-top"></a>
+        </li>
+        <li class="page-scroll">
+            @Html.ActionLink("Login","Login","Home")
+        </li>
+        <li class="page-scroll">
+            @Html.ActionLink("Register", "Register", "Home")
+        </li>
+        <li class="page-scroll">
+            <a href="javascript:;" data-toggle="modal" data-target="#templatemo_modal">Contact</a>
+        </li>
+    </ul>
+    
+}
+else
+{
+    <div class="nav navbar-nav navbar-right">
+        <br />
+        <span style="color:white;font-weight:bold">Welcome @Convert.ToString(Session["UserName"])!</span>
+        @Html.ActionLink("[ Log Off ]", "LogOff", "Home")
+    </div>
+}
+
